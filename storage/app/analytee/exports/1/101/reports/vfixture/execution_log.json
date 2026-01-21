@@ -1,0 +1,7 @@
+{
+    "pipeline_version": "fixture",
+    "mode": "prod",
+    "input_hash": "31034868c44eb43d47d4820ed882388254489eb6ca81d7153874304f97865647",
+    "docx_hash": "2535b62804d1cdc944ab0b594eb26d7467802e05a5beaf960e09319d8ed6c3ee",
+    "pdf_hash": "237e25e2ce65d81f9b39830131fd9c474c2158b7d784f93ce51ec4e1df5791b6"
+}

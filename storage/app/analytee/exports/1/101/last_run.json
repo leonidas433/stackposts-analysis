@@ -1,0 +1,35 @@
+{
+    "team_id": 1,
+    "account_id": 101,
+    "place_id": "fixture-place-123",
+    "input_json_relative_path": "analytee/exports/1/101/input.json",
+    "input_json_sha256": "31034868c44eb43d47d4820ed882388254489eb6ca81d7153874304f97865647",
+    "reviews_count_input": 20,
+    "reviews_count_output": 15,
+    "engine": {
+        "mode": "fixture",
+        "cwd": "D:\\analytee_proyecto_pro\\web_saas\\analytee_cloud\\analytics_engine",
+        "pipeline_version": "fixture"
+    },
+    "outputs": {
+        "pipeline_version": "fixture",
+        "client_safe": "input",
+        "expected_out_dir": "D:\\analytee_proyecto_pro\\web_saas\\analytee_cloud\\analytics_engine\\data\\reports\\input\\vfixture",
+        "docx_path": "D:\\analytee_proyecto_pro\\web_saas\\analytee_cloud\\analytics_engine\\data\\reports\\input\\vfixture\\input_informe_PROFESIONAL.docx",
+        "pdf_path": "D:\\analytee_proyecto_pro\\web_saas\\analytee_cloud\\analytics_engine\\data\\reports\\input\\vfixture\\input_informe_PROFESIONAL.pdf",
+        "execution_log_path": "D:\\analytee_proyecto_pro\\web_saas\\analytee_cloud\\analytics_engine\\data\\reports\\input\\vfixture\\execution_log.json",
+        "input_sha256": "31034868c44eb43d47d4820ed882388254489eb6ca81d7153874304f97865647",
+        "docx_sha256": "2535b62804d1cdc944ab0b594eb26d7467802e05a5beaf960e09319d8ed6c3ee",
+        "pdf_sha256": "237e25e2ce65d81f9b39830131fd9c474c2158b7d784f93ce51ec4e1df5791b6"
+    },
+    "stored_reports": {
+        "dir": "analytee/exports/1/101/reports/vfixture",
+        "files": {
+            "docx": "analytee/exports/1/101/reports/vfixture/input_informe_PROFESIONAL.docx",
+            "pdf": "analytee/exports/1/101/reports/vfixture/input_informe_PROFESIONAL.pdf",
+            "execution_log": "analytee/exports/1/101/reports/vfixture/execution_log.json"
+        }
+    },
+    "reference_comparison": null,
+    "finished_at": "2026-01-21 18:25:00"
+}

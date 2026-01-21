@@ -1,0 +1,23 @@
+{
+    "name": "AppChannelGBPLocations",
+    "alias": "appchannelgbplocations",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\AppChannelGBPLocations\\Providers\\AppChannelGBPLocationsServiceProvider"
+    ],
+    "files": [],
+    "permission": false,
+    "menu": {
+        "uri": "app/google_business_profile/location",
+        "role": "client",
+        "platform": 1,
+        "section": "",
+        "tab_id": 1,
+        "position": 1500,
+        "name": "Google Business Profile location",
+        "color": "#4285F4",
+        "icon": "fa-light fa-store"
+    }
+}

@@ -1,0 +1,11 @@
+{
+    "name": "AppAnalyticsInstagram",
+    "alias": "appanalyticsinstagram",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\AppAnalyticsInstagram\\Providers\\AppAnalyticsInstagramServiceProvider"
+    ],
+    "files": []
+}

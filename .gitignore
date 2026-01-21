@@ -1,0 +1,46 @@
+# Dependencias
+/vendor
+/node_modules
+
+# Entorno
+.env
+.env.*
+!.env.example
+auth.json
+
+# Builds y runtime
+/public/build
+/public/hot
+/public/storage
+
+# Storage Laravel
+/storage/logs
+/storage/framework/cache
+/storage/framework/sessions
+/storage/framework/views
+/storage/*.key
+/storage/pail
+
+# Testing
+/phpunit.cache
+.phpunit.result.cache
+
+# Homestead
+Homestead.json
+Homestead.yaml
+
+# Logs
+npm-debug.log
+yarn-error.log
+*.log
+
+# Backups y dumps
+analytee_cloud.zip
+analytee_app_db.sql
+
+# IDEs / herramientas
+/.idea
+/.vscode
+/.fleet
+/.zed
+.phpactor.json

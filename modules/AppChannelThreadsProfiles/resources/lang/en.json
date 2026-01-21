@@ -1,0 +1,21 @@
+{
+    "Threads API currently supports only 'media' and 'link' types.": "Threads API currently supports only 'media' and 'link' types.",
+    "Succesed": "Succesed",
+    "Profile": "Profile",
+    "Succeeded": "Succeeded",
+    "Threads": "Threads",
+    "Threads API": "Threads API",
+    "Easy Configuration Steps for Threads API": "Easy Configuration Steps for Threads API",
+    "Status": "Status",
+    "Enable": "Enable",
+    "Disable": "Disable",
+    "App ID": "App ID",
+    "App Secret": "App Secret",
+    "Permissions": "Permissions",
+    "Callback URL: ": "Callback URL: ",
+    "Save changes": "Save changes",
+    "Threads profiles": "Threads profiles",
+    "Your name": "Your name",
+    "To use Threads, you must first configure the app ID and app secret.": "To use Threads, you must first configure the app ID and app secret.",
+    "Could not connect to Threads API: ": "Could not connect to Threads API: "
+}

@@ -1,0 +1,13 @@
+[
+  {
+    "team_id": 1,
+    "account_id": 101,
+    "place_id": "fixture-place-123",
+    "rating": 4.3,
+    "user_ratings_total": 128,
+    "website": "https://fixture.example",
+    "types": "[\"restaurant\",\"food\"]",
+    "vicinity": "Calle Falsa 123, Madrid"
+  }
+]
+

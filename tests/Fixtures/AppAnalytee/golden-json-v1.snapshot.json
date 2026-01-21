@@ -1,0 +1,145 @@
+{
+    "address": "Calle Falsa 123, Madrid",
+    "category": "restaurant",
+    "totalScore": 4.3,
+    "reviewsCount": 128,
+    "website": "https://fixture.example",
+    "phoneNumber": null,
+    "reviews": [
+        {
+            "author": "Ana Gómez",
+            "rating": 5,
+            "date": "2024-01-10 09:00:00",
+            "text": "  EXCELENTE   atención  y  comida.  Volveremos  seguro. ",
+            "responseFromOwnerText": "Gracias por tu visita",
+            "likes": 0,
+            "photos": []
+        },
+        {
+            "author": "Carlos Ruiz",
+            "rating": 4,
+            "date": "2024-01-09 08:00:00",
+            "text": "   ",
+            "responseFromOwnerText": "Gracias por tu reseña",
+            "likes": 0,
+            "photos": []
+        },
+        {
+            "author": "María López",
+            "rating": 3,
+            "date": "2024-01-08 14:30:00",
+            "text": "Correcto, aunque tardaron un poco.",
+            "responseFromOwnerText": "Sentimos la espera, gracias por avisar",
+            "likes": 0,
+            "photos": []
+        },
+        {
+            "author": "Luis Martín",
+            "rating": 2,
+            "date": "2024-01-07 20:15:00",
+            "text": "El servicio fue lento y la comida llegó fría.",
+            "responseFromOwnerText": null,
+            "likes": 0,
+            "photos": []
+        },
+        {
+            "author": "Sofía Pérez",
+            "rating": 1,
+            "date": "2024-01-06 11:45:00",
+            "text": "Mala experiencia.",
+            "responseFromOwnerText": "Lamentamos lo ocurrido, contáctanos",
+            "likes": 0,
+            "photos": []
+        },
+        {
+            "author": "Javier Torres",
+            "rating": 5,
+            "date": "2024-01-05 19:10:00",
+            "text": "Un sitio increíble. La carta es amplia y el personal muy amable. Recomendado.",
+            "responseFromOwnerText": null,
+            "likes": 0,
+            "photos": []
+        },
+        {
+            "author": "Elena Díaz",
+            "rating": 4,
+            "date": "2024-01-04 21:05:00",
+            "text": "Buen ambiente, precios correctos.",
+            "responseFromOwnerText": null,
+            "likes": 0,
+            "photos": []
+        },
+        {
+            "author": "Pablo Sánchez",
+            "rating": 3,
+            "date": "2024-01-03 13:00:00",
+            "text": "Normal.",
+            "responseFromOwnerText": null,
+            "likes": 0,
+            "photos": []
+        },
+        {
+            "author": "Isabel Romero",
+            "rating": 2,
+            "date": "2024-01-02 10:20:00",
+            "text": "Podría mejorar la limpieza.",
+            "responseFromOwnerText": null,
+            "likes": 0,
+            "photos": []
+        },
+        {
+            "author": "Miguel Ortega",
+            "rating": 5,
+            "date": "2024-01-01 16:40:00",
+            "text": "La mejor paella que he probado en mucho tiempo.",
+            "responseFromOwnerText": "¡Qué alegría leerte! Gracias",
+            "likes": 0,
+            "photos": []
+        },
+        {
+            "author": "Raquel Navarro",
+            "rating": 4,
+            "date": "2023-12-31 12:00:00",
+            "text": "Volvimos por segunda vez y mantiene el nivel.",
+            "responseFromOwnerText": null,
+            "likes": 0,
+            "photos": []
+        },
+        {
+            "author": "Daniel Castillo",
+            "rating": 3,
+            "date": "2023-12-30 18:25:00",
+            "text": "Está bien, pero el ruido era alto.",
+            "responseFromOwnerText": null,
+            "likes": 0,
+            "photos": []
+        },
+        {
+            "author": "Teresa Gil",
+            "rating": 1,
+            "date": "2023-12-29 09:50:00",
+            "text": "No lo recomiendo.",
+            "responseFromOwnerText": null,
+            "likes": 0,
+            "photos": []
+        },
+        {
+            "author": "Héctor Molina",
+            "rating": 5,
+            "date": "2023-12-28 22:10:00",
+            "text": "Texto largo: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
+            "responseFromOwnerText": null,
+            "likes": 0,
+            "photos": []
+        },
+        {
+            "author": "Nuria Vega",
+            "rating": 2,
+            "date": "2023-12-27 21:30:00",
+            "text": "La música demasiado alta.",
+            "responseFromOwnerText": null,
+            "likes": 0,
+            "photos": []
+        }
+    ]
+}

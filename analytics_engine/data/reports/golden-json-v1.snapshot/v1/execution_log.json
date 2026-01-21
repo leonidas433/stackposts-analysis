@@ -1,0 +1,13 @@
+{
+  "pipeline_version":"1",
+  "mode":"prod",
+  "created_at":"2026-01-20T20:48:57Z",
+  "input_hash":"ca8c678c4596daf5cbb7423f55ec74b2392852bc843ffbee9eb0b4a4f1856bb2",
+  "docx_hash":"b76fda00a06b72572d2ad3494922a6c1c361a51845876dc022ca38bea55b06dc",
+  "pdf_hash":"b76fda00a06b72572d2ad3494922a6c1c361a51845876dc022ca38bea55b06dc",
+  "analysis_hash":"803057089a8ca82522e951ad9102cf70d77884a31c0a1dd27adffa65bfe4bf73",
+  "counts":{
+    "reviews":15,
+    "with_owner_response":5
+  }
+}

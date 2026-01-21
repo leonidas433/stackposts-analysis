@@ -1,0 +1,11 @@
+{
+    "name": "AppAppearance",
+    "alias": "appappearance",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\AppAppearance\\Providers\\AppAppearanceServiceProvider"
+    ],
+    "files": []
+}

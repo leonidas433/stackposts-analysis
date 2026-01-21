@@ -1,0 +1,33 @@
+{
+    "name": "AdminAnalytee",
+    "alias": "adminanalytee",
+    "description": "Admin – Prompts de IA para Analytee",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\AdminAnalytee\\Providers\\AdminAnalyteeServiceProvider"
+    ],
+    "files": [],
+    "permission": true,
+    "menu": {
+        "uri": "admin/analytee/prompts",
+        "role": "admin",
+        "platform": 1,
+        "section": "top",
+        "tab_id": 9,
+        "position": 10,
+        "name": "Analytee",
+        "color": "#0ea5e9",
+        "icon": "fa-solid fa-chart-line",
+        "sub_menu": [
+            {
+                "uri": "admin/analytee/prompts",
+                "name": "Prompts",
+                "position": 10,
+                "icon": "fa-solid fa-chart-line",
+                "color": "#0ea5e9"
+            }
+        ]
+    }
+}
+

@@ -1,0 +1,23 @@
+{
+    "name": "AppChannelPinterestBoards",
+    "alias": "appchannelpinterestboards",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\AppChannelPinterestBoards\\Providers\\AppChannelPinterestBoardsServiceProvider"
+    ],
+    "files": [],
+    "permission": false,
+    "menu": {
+        "uri": "app/pinterest/board",
+        "role": "client",
+        "platform": 1,
+        "section": "",
+        "tab_id": 1,
+        "position": 1500,
+        "name": "Pinterest profiles",
+        "color": "#bd081c",
+        "icon": "fa-brands fa-pinterest"
+    }
+}

@@ -1,0 +1,9 @@
+{
+  "name": "guest/analytee",
+  "type": "laravel-theme",
+  "extra": {
+    "laravel-theme": {
+      "name": "guest/analytee"
+    }
+  }
+}

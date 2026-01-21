@@ -1,0 +1,477 @@
+{
+  "pipeline_version":"1",
+  "generated_at":"2026-01-20T20:48:57Z",
+  "mode":"prod",
+  "input":{
+    "address":"Calle Falsa 123, Madrid",
+    "category":"restaurant",
+    "totalScore":4.3,
+    "reviewsCount":128,
+    "website":"https://fixture.example"
+  },
+  "stats":{
+    "reviews":15,
+    "rating":{
+      "1":2,
+      "2":3,
+      "3":3,
+      "4":3,
+      "5":4
+    },
+    "language":{
+      "es":10,
+      "en":1,
+      "und":4
+    },
+    "sentiment":{
+      "avg_score":0.068426,
+      "positive":7,
+      "neutral":3,
+      "negative":5
+    },
+    "reply_rate_pct":33.33
+  },
+  "topics":{
+    "keywords":[
+      {
+        "term":"normal",
+        "score":3.079442,
+        "df":1
+      },
+      {
+        "term":"recomiendo",
+        "score":3.079442,
+        "df":1
+      },
+      {
+        "term":"mala",
+        "score":1.539721,
+        "df":1
+      },
+      {
+        "term":"experiencia",
+        "score":1.539721,
+        "df":1
+      },
+      {
+        "term":"comida",
+        "score":1.069591,
+        "df":2
+      },
+      {
+        "term":"podría",
+        "score":1.026481,
+        "df":1
+      },
+      {
+        "term":"mejorar",
+        "score":1.026481,
+        "df":1
+      },
+      {
+        "term":"limpieza",
+        "score":1.026481,
+        "df":1
+      },
+      {
+        "term":"música",
+        "score":1.026481,
+        "df":1
+      },
+      {
+        "term":"demasiado",
+        "score":1.026481,
+        "df":1
+      },
+      {
+        "term":"alta",
+        "score":1.026481,
+        "df":1
+      },
+      {
+        "term":"correcto",
+        "score":0.76986,
+        "df":1
+      },
+      {
+        "term":"aunque",
+        "score":0.76986,
+        "df":1
+      },
+      {
+        "term":"tardaron",
+        "score":0.76986,
+        "df":1
+      },
+      {
+        "term":"poco",
+        "score":0.76986,
+        "df":1
+      }
+    ],
+    "bigrams":[
+      {
+        "term":"excelente atención",
+        "count":1
+      },
+      {
+        "term":"atención comida",
+        "count":1
+      },
+      {
+        "term":"comida volveremos",
+        "count":1
+      },
+      {
+        "term":"volveremos seguro",
+        "count":1
+      },
+      {
+        "term":"correcto aunque",
+        "count":1
+      },
+      {
+        "term":"aunque tardaron",
+        "count":1
+      },
+      {
+        "term":"tardaron poco",
+        "count":1
+      },
+      {
+        "term":"servicio lento",
+        "count":1
+      },
+      {
+        "term":"lento comida",
+        "count":1
+      },
+      {
+        "term":"comida llegó",
+        "count":1
+      },
+      {
+        "term":"llegó fría",
+        "count":1
+      },
+      {
+        "term":"mala experiencia",
+        "count":1
+      },
+      {
+        "term":"sitio increíble",
+        "count":1
+      },
+      {
+        "term":"increíble carta",
+        "count":1
+      },
+      {
+        "term":"carta amplia",
+        "count":1
+      }
+    ]
+  },
+  "reviews":[
+    {
+      "i":0,
+      "rating":5,
+      "date":"2024-01-10 09:00:00",
+      "date_ymd":"2024-01-10",
+      "language":"es",
+      "sentiment":{
+        "label":"positive",
+        "score":0.808248
+      },
+      "metrics":{
+        "text_chars":47,
+        "word_count":6,
+        "unique_words":6,
+        "lexical_complexity":1.0,
+        "has_owner_response":true,
+        "owner_response_chars":21
+      },
+      "text_preview":"EXCELENTE atención y comida. Volveremos seguro."
+    },
+    {
+      "i":1,
+      "rating":4,
+      "date":"2024-01-09 08:00:00",
+      "date_ymd":"2024-01-09",
+      "language":"und",
+      "sentiment":{
+        "label":"positive",
+        "score":0.2
+      },
+      "metrics":{
+        "text_chars":0,
+        "word_count":0,
+        "unique_words":0,
+        "lexical_complexity":0.0,
+        "has_owner_response":true,
+        "owner_response_chars":21
+      },
+      "text_preview":""
+    },
+    {
+      "i":2,
+      "rating":3,
+      "date":"2024-01-08 14:30:00",
+      "date_ymd":"2024-01-08",
+      "language":"es",
+      "sentiment":{
+        "label":"neutral",
+        "score":0.0
+      },
+      "metrics":{
+        "text_chars":34,
+        "word_count":5,
+        "unique_words":5,
+        "lexical_complexity":1.0,
+        "has_owner_response":true,
+        "owner_response_chars":38
+      },
+      "text_preview":"Correcto, aunque tardaron un poco."
+    },
+    {
+      "i":3,
+      "rating":2,
+      "date":"2024-01-07 20:15:00",
+      "date_ymd":"2024-01-07",
+      "language":"es",
+      "sentiment":{
+        "label":"negative",
+        "score":-0.533333
+      },
+      "metrics":{
+        "text_chars":45,
+        "word_count":9,
+        "unique_words":9,
+        "lexical_complexity":1.0,
+        "has_owner_response":false,
+        "owner_response_chars":0
+      },
+      "text_preview":"El servicio fue lento y la comida llegó fría."
+    },
+    {
+      "i":4,
+      "rating":1,
+      "date":"2024-01-06 11:45:00",
+      "date_ymd":"2024-01-06",
+      "language":"und",
+      "sentiment":{
+        "label":"negative",
+        "score":-0.753553
+      },
+      "metrics":{
+        "text_chars":17,
+        "word_count":2,
+        "unique_words":2,
+        "lexical_complexity":1.0,
+        "has_owner_response":true,
+        "owner_response_chars":35
+      },
+      "text_preview":"Mala experiencia."
+    },
+    {
+      "i":5,
+      "rating":5,
+      "date":"2024-01-05 19:10:00",
+      "date_ymd":"2024-01-05",
+      "language":"es",
+      "sentiment":{
+        "label":"positive",
+        "score":0.67735
+      },
+      "metrics":{
+        "text_chars":77,
+        "word_count":13,
+        "unique_words":13,
+        "lexical_complexity":1.0,
+        "has_owner_response":false,
+        "owner_response_chars":0
+      },
+      "text_preview":"Un sitio increíble. La carta es amplia y el personal muy amable. Recomendado."
+    },
+    {
+      "i":6,
+      "rating":4,
+      "date":"2024-01-04 21:05:00",
+      "date_ymd":"2024-01-04",
+      "language":"und",
+      "sentiment":{
+        "label":"positive",
+        "score":0.45
+      },
+      "metrics":{
+        "text_chars":33,
+        "word_count":4,
+        "unique_words":4,
+        "lexical_complexity":1.0,
+        "has_owner_response":false,
+        "owner_response_chars":0
+      },
+      "text_preview":"Buen ambiente, precios correctos."
+    },
+    {
+      "i":7,
+      "rating":3,
+      "date":"2024-01-03 13:00:00",
+      "date_ymd":"2024-01-03",
+      "language":"und",
+      "sentiment":{
+        "label":"neutral",
+        "score":0.0
+      },
+      "metrics":{
+        "text_chars":7,
+        "word_count":1,
+        "unique_words":1,
+        "lexical_complexity":1.0,
+        "has_owner_response":false,
+        "owner_response_chars":0
+      },
+      "text_preview":"Normal."
+    },
+    {
+      "i":8,
+      "rating":2,
+      "date":"2024-01-02 10:20:00",
+      "date_ymd":"2024-01-02",
+      "language":"es",
+      "sentiment":{
+        "label":"negative",
+        "score":-0.2
+      },
+      "metrics":{
+        "text_chars":27,
+        "word_count":4,
+        "unique_words":4,
+        "lexical_complexity":1.0,
+        "has_owner_response":false,
+        "owner_response_chars":0
+      },
+      "text_preview":"Podría mejorar la limpieza."
+    },
+    {
+      "i":9,
+      "rating":5,
+      "date":"2024-01-01 16:40:00",
+      "date_ymd":"2024-01-01",
+      "language":"es",
+      "sentiment":{
+        "label":"positive",
+        "score":0.566667
+      },
+      "metrics":{
+        "text_chars":47,
+        "word_count":9,
+        "unique_words":9,
+        "lexical_complexity":1.0,
+        "has_owner_response":true,
+        "owner_response_chars":28
+      },
+      "text_preview":"La mejor paella que he probado en mucho tiempo."
+    },
+    {
+      "i":10,
+      "rating":4,
+      "date":"2023-12-31 12:00:00",
+      "date_ymd":"2023-12-31",
+      "language":"es",
+      "sentiment":{
+        "label":"positive",
+        "score":0.2
+      },
+      "metrics":{
+        "text_chars":45,
+        "word_count":8,
+        "unique_words":8,
+        "lexical_complexity":1.0,
+        "has_owner_response":false,
+        "owner_response_chars":0
+      },
+      "text_preview":"Volvimos por segunda vez y mantiene el nivel."
+    },
+    {
+      "i":11,
+      "rating":3,
+      "date":"2023-12-30 18:25:00",
+      "date_ymd":"2023-12-30",
+      "language":"es",
+      "sentiment":{
+        "label":"neutral",
+        "score":-0.188982
+      },
+      "metrics":{
+        "text_chars":34,
+        "word_count":7,
+        "unique_words":7,
+        "lexical_complexity":1.0,
+        "has_owner_response":false,
+        "owner_response_chars":0
+      },
+      "text_preview":"Está bien, pero el ruido era alto."
+    },
+    {
+      "i":12,
+      "rating":1,
+      "date":"2023-12-29 09:50:00",
+      "date_ymd":"2023-12-29",
+      "language":"es",
+      "sentiment":{
+        "label":"negative",
+        "score":-0.4
+      },
+      "metrics":{
+        "text_chars":17,
+        "word_count":3,
+        "unique_words":3,
+        "lexical_complexity":1.0,
+        "has_owner_response":false,
+        "owner_response_chars":0
+      },
+      "text_preview":"No lo recomiendo."
+    },
+    {
+      "i":13,
+      "rating":5,
+      "date":"2023-12-28 22:10:00",
+      "date_ymd":"2023-12-28",
+      "language":"en",
+      "sentiment":{
+        "label":"positive",
+        "score":0.4
+      },
+      "metrics":{
+        "text_chars":347,
+        "word_count":54,
+        "unique_words":49,
+        "lexical_complexity":0.907407,
+        "has_owner_response":false,
+        "owner_response_chars":0
+      },
+      "text_preview":"Texto largo: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo conseq"
+    },
+    {
+      "i":14,
+      "rating":2,
+      "date":"2023-12-27 21:30:00",
+      "date_ymd":"2023-12-27",
+      "language":"es",
+      "sentiment":{
+        "label":"negative",
+        "score":-0.2
+      },
+      "metrics":{
+        "text_chars":25,
+        "word_count":4,
+        "unique_words":4,
+        "lexical_complexity":1.0,
+        "has_owner_response":false,
+        "owner_response_chars":0
+      },
+      "text_preview":"La música demasiado alta."
+    }
+  ]
+}

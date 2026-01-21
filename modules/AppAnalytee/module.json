@@ -1,0 +1,24 @@
+{
+    "name": "AppAnalytee",
+    "alias": "appanalytee",
+    "description": "Analytee – Análisis de reseñas de Google Maps",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\AppAnalytee\\Providers\\AppAnalyteeServiceProvider"
+    ],
+    "files": [],
+    "permission": false,
+    "menu": {
+        "uri": "app/analytee",
+        "role": "client",
+        "platform": 1,
+        "section": "top",
+        "tab_id": 1,
+        "position": 205000,
+        "name": "Analytee",
+        "color": "#0ea5e9",
+        "icon": "fa-light fa-location-dot"
+    }
+}
+

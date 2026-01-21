@@ -1,0 +1,11 @@
+{
+    "name": "Slimu URL Shortener",
+    "slug": "appslimu",
+    "description": "Integrates Slimu.in as a URL shortener.",
+    "version": "1.0.0",
+    "author": "Vinay Shukla",
+    "enabled": true,
+    "providers": [
+        "Modules\\AppSlimu\\SlimuServiceProvider"
+    ]
+}
