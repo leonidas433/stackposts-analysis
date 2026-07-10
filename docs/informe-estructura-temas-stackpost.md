@@ -3,6 +3,12 @@
 **Fecha:** 2026-07-10
 **Alcance:** análisis de la arquitectura de temas (themes) del proyecto Laravel que sirve analytee.com, desde la perspectiva de diseño UI/UX y mantenibilidad del frontend.
 
+> **Estado (actualización 2026-07-10):** las 9 recomendaciones de la §8 se
+> implementaron en este mismo PR — ver la columna *Estado* de la tabla y la
+> nueva guía de desarrollo de temas en `docs/guia-crear-un-tema.md`. Algunas
+> afirmaciones de las §3-§7 describen el estado *previo* del sistema y se
+> anotan como corregidas donde corresponde.
+
 ---
 
 ## 1. Resumen ejecutivo
@@ -199,17 +205,21 @@ La consecuencia de diseño más importante: **los módulos definen el contenido 
 
 ## 8. Recomendaciones priorizadas
 
-| Prioridad | Acción | Impacto |
-|---|---|---|
-| 🔴 Alta | **Endurecer el import ZIP** (validar theme.json contra esquema, whitelist de extensiones, prevenir path traversal, extraer a staging antes de publicar) | Seguridad del admin |
-| 🔴 Alta | **Consolidar los 3 temas guest en 1 tema base + capas de override** (usar la cascada de vistas que ya existe: un tema "hijo" solo con las vistas que cambian) o, mínimo, documentar cuál es canónico | Elimina drift y triplica la velocidad de cambios |
-| 🔴 Alta | **Quitar Highcharts/CDN del layout global de pico** y cargarlo solo en vistas con gráficas (`@push`), self-host de Alpine y fuentes en guest | LCP/TTI y RGPD |
-| 🟠 Media | **Definir design tokens compartidos** (variables CSS consumidas por DaisyUI en guest y mapeadas a Bootstrap en app) para unificar marca entre landing y panel | Consistencia de marca |
-| 🟠 Media | **Migración progresiva del panel a la pipeline Tailwind ya preparada** en `app/pico/assets` (el terreno está listo: Vite + Tailwind 4 + DaisyUI configurados pero sin usar) | Reduce el doble stack |
-| 🟠 Media | **Esquema formal para `theme.json`** (campos obligatorios: name, version, preview, tags, sort) + validación en `FrontendThemeService::all()` y en el import | UX del selector de temas |
-| 🟡 Baja | Limpiar `resources/nova/` y el módulo `AdminThemes` vacío (o implementarlo para elegir tema `app/` y retirar el hardcode del middleware) | Higiene del código |
-| 🟡 Baja | Cachear la detección de dev-server de `theme_vite` (config/env en producción en lugar de ping HTTP) | Rendimiento server-side |
-| 🟡 Baja | Auditoría de accesibilidad (foco, contraste DaisyUI, `prefers-reduced-motion`, dark mode coherente) | Calidad UX |
+| Prioridad | Acción | Impacto | Estado |
+|---|---|---|---|
+| 🔴 Alta | **Endurecer el import ZIP** (validar theme.json contra esquema, whitelist de extensiones, prevenir path traversal, extraer a staging antes de publicar) | Seguridad del admin | ✅ Implementado: flujo staging→validate→move, pre-escaneo anti path-traversal/zip-bomb, `ThemeManifestValidator`, y método `destroy` que faltaba (la ruta existía → 500) |
+| 🔴 Alta | **Consolidar los 3 temas guest en 1 tema base + capas de override** (usar la cascada de vistas que ya existe: un tema "hijo" solo con las vistas que cambian) o, mínimo, documentar cuál es canónico | Elimina drift y triplica la velocidad de cambios | ✅ Implementado: `guest/nova` es el base; `analytee` y `analytee_pro` son hijos vía `extra.theme.parent` (52 vistas duplicadas eliminadas; analytee_pro pasa de 67MB a 296KB) |
+| 🔴 Alta | **Quitar Highcharts/CDN del layout global de pico** y cargarlo solo en vistas con gráficas (`@push`), self-host de Alpine y fuentes en guest | LCP/TTI y RGPD | ✅ Implementado: carga perezosa en `Main.Chart` (cubre fragmentos AJAX) + `@pushOnce` en las 3 páginas completas; Alpine bundleado desde npm; Inter self-host. General Sans pendiente de descarga manual (guía §12) |
+| 🟠 Media | **Definir design tokens compartidos** (variables CSS consumidas por DaisyUI en guest y mapeadas a Bootstrap en app) para unificar marca entre landing y panel | Consistencia de marca | ✅ Implementado: `resources/themes/_shared/tokens.css` (`--sp-*`) consumidos por guest (daisyUI) y pico (`tw:`) |
+| 🟠 Media | **Migración progresiva del panel a la pipeline Tailwind ya preparada** en `app/pico/assets` (el terreno está listo: Vite + Tailwind 4 + DaisyUI configurados pero sin usar) | Reduce el doble stack | ✅ Implementado (primer paso): pipeline real con utilidades prefijadas `tw:` sin preflight, conviviendo con Bootstrap. *(Corrección: el `assets/css/app.css` de pico estaba vacío — no había pipeline "preparada")* |
+| 🟠 Media | **Esquema formal para `theme.json`** (campos obligatorios: name, version, preview, tags, sort) + validación en `FrontendThemeService::all()` y en el import | UX del selector de temas | ✅ Implementado: esquema en `ThemeManifestValidator` (lenient en selector con badge de aviso, estricto en import); los 3 theme.json completados y `sort` definido |
+| 🟡 Baja | Limpiar `resources/nova/` y el módulo `AdminThemes` vacío (o implementarlo para elegir tema `app/` y retirar el hardcode del middleware) | Higiene del código | ✅ Implementado: ambos eliminados (+62MB liberados); el middleware usa la opción `backend_theme` (default `app/pico`) |
+| 🟡 Baja | Cachear la detección de dev-server de `theme_vite` (config/env en producción en lugar de ping HTTP) | Rendimiento server-side | ✅ Implementado: el ping solo corre con `APP_ENV=local` (o `VITE_DEV_SERVER=true`); además `theme_vite`/`theme_public_asset` hacen fallback al tema padre |
+| 🟡 Baja | Auditoría de accesibilidad (foco, contraste DaisyUI, `prefers-reduced-motion`, dark mode coherente) | Calidad UX | ✅ Implementado en el tema base: skip-link, `<main>`/`<header>` landmarks, `:focus-visible`, `prefers-reduced-motion`, cookie bar accesible, daisyUI acotado a light/dark (analytee light-only). Checklist para temas nuevos en la guía §9 |
+
+**Guía de desarrollo de temas:** `docs/guia-crear-un-tema.md` (anatomía del
+base, herencia padre/hijo, tokens, builds, esquema theme.json, checklist a11y
+y de despliegue).
 
 ---
 
