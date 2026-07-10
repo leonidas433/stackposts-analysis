@@ -1,0 +1,106 @@
+# =====================================================================
+# Agente 73 v4.0 — definición declarativa de las 13 fases.
+#
+# runner:     claude | shell | notify | internal
+# subagents:  prompts de agente73/subagents/ que usa la fase (runner claude)
+# gate:       human -> el pipeline se PARA y espera APRUEBA/RECHAZA (F09)
+# on_fail:    retry_phase: <n> / max_retries: reintentos antes de failed
+# verticals:  a qué comandos aplica la fase (tema, web)
+#
+# El QA stop de la Fase 09 es OBLIGATORIO y no tiene bypass: no existe
+# ningún camino desde WhatsApp hacia un deploy. La entrega (F11) produce
+# un ZIP y, opcionalmente, una rama+PR — nunca toca producción.
+# =====================================================================
+phases:
+  - id: 1
+    name: Intake
+    runner: internal
+    verticals: [tema, web]
+
+  - id: 2
+    name: Brief
+    runner: claude
+    subagents: [entrevistador]
+    output: brief.md
+    verticals: [tema, web]
+
+  - id: 3
+    name: Investigación
+    runner: claude
+    subagents: [investigador-marca]
+    output: investigacion.md
+    verticals: [tema, web]
+
+  - id: 4
+    name: Arquitectura de contenido
+    runner: claude
+    subagents: [arquitecto-contenido]
+    output: arquitectura.md
+    verticals: [tema, web]
+
+  - id: 5
+    name: Copywriting
+    runner: claude
+    subagents: [copywriter-es, copywriter-en]
+    output: copy.md
+    verticals: [tema, web]
+
+  - id: 6
+    name: Diseño y tokens
+    runner: claude
+    subagents: [disenador-tokens, revisor-marca]
+    output: diseno.md
+    verticals: [tema, web]
+
+  - id: 7
+    name: Generación
+    runner: claude
+    subagents:
+      - integrador-blade
+      - maquetador-hero
+      - maquetador-secciones
+      - maquetador-pricing
+      - maquetador-blog
+      - maquetador-auth
+    contract: tema-stackpost.md   # el vertical web usa web-generica.md
+    output: generacion.md
+    verticals: [tema, web]
+
+  - id: 8
+    name: Build y validación automática
+    runner: shell
+    on_fail: { retry_phase: 7, max_retries: 2 }
+    output: qa-auto.md
+    verticals: [tema]
+
+  - id: 9
+    name: QA humano (STOP)
+    runner: notify
+    gate: human
+    subagents: [qa-reporter, revisor-a11y, revisor-seo]
+    output: qa-humano.md
+    verticals: [tema, web]
+
+  - id: 10
+    name: Empaquetado
+    runner: shell
+    output: paquete.zip
+    verticals: [tema, web]
+
+  - id: 11
+    name: Entrega
+    runner: notify
+    subagents: [empaquetador]
+    verticals: [tema, web]
+
+  - id: 12
+    name: Registro
+    runner: internal
+    subagents: [cronista]
+    verticals: [tema, web]
+
+  - id: 13
+    name: Cierre
+    runner: notify
+    subagents: [notificador]
+    verticals: [tema, web]
