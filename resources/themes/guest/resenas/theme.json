@@ -1,0 +1,10 @@
+{
+  "name": "Reseñas",
+  "description": "Landing orientada al servicio: análisis de reseñas con IA y programación de redes sociales en un solo lugar. Hijo de Nova Modern con marca azul (confianza) y home reestructurada según el brief SEO de reseñas.",
+  "version": "1.0.0",
+  "author": "Analytee",
+  "preview": "preview.png",
+  "tags": ["seo", "reviews", "reputacion", "saas"],
+  "parent": "guest/nova",
+  "sort": 8
+}

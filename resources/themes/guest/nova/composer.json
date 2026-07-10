@@ -1,10 +1,9 @@
 {
     "name": "guest/nova",
-    "description": "Nova theme for guest",
+    "description": "Nova Modern — base guest theme for StackPost",
     "type": "laravel-theme",
+    "version": "1.0.0",
     "extra": {
-        "laravel-theme": {
-            "name": "guest/nova"
-        }
+        "theme": {}
     }
 }

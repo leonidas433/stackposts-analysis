@@ -482,3 +482,7 @@
     </script>
 @endsection
 
+
+@pushOnce('vendor_scripts', 'highcharts')
+    @include('partials.scripts.highcharts')
+@endPushOnce

@@ -1,7 +1,14 @@
 {
+  "resources/themes/_shared/fonts/inter-latin-ext.woff2": {
+    "file": "fonts/inter-latin-ext.woff2",
+    "src": "resources/themes/_shared/fonts/inter-latin-ext.woff2"
+  },
+  "resources/themes/_shared/fonts/inter-latin.woff2": {
+    "file": "fonts/inter-latin.woff2",
+    "src": "resources/themes/_shared/fonts/inter-latin.woff2"
+  },
   "resources/themes/app/pico/assets/css/app.css": {
-    "file": "js/app2.js",
-    "name": "app",
+    "file": "css/app.css",
     "src": "resources/themes/app/pico/assets/css/app.css",
     "isEntry": true
   },

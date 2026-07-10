@@ -46,10 +46,44 @@ if (! function_exists('price')) {
     }
 }
 
+if (! function_exists('theme_parent')) {
+    /**
+     * Parent theme declared in the theme's composer.json (extra.theme.parent),
+     * e.g. "guest/nova". Null when the theme has no parent.
+     */
+    function theme_parent(string $theme): ?string
+    {
+        static $cache = [];
+
+        if (array_key_exists($theme, $cache)) {
+            return $cache[$theme];
+        }
+
+        $parent = null;
+        $composer = base_path("resources/themes/{$theme}/composer.json");
+        if (is_file($composer)) {
+            $data = json_decode((string) file_get_contents($composer), true);
+            $parent = $data['extra']['theme']['parent'] ?? null;
+        }
+
+        return $cache[$theme] = ($parent && $parent !== $theme) ? $parent : null;
+    }
+}
+
 if (! function_exists('theme_public_asset')) {
     function theme_public_asset($path)
     {
         $theme = app()->bound('theme') ? app('theme') : '';
+
+        // Child themes only ship what they override: walk up the parent
+        // chain until the asset physically exists.
+        $current = $theme;
+        for ($depth = 0; $current && $depth < 3; $depth++) {
+            if (is_file(base_path("resources/themes/{$current}/public/{$path}"))) {
+                return asset("resources/themes/{$current}/public/{$path}");
+            }
+            $current = theme_parent($current);
+        }
 
         return asset("resources/themes/{$theme}/public/{$path}");
     }
@@ -98,51 +132,67 @@ if (! function_exists('menu_active')) {
 }
 
 if (! function_exists('theme_vite')) {
-    function theme_vite(string $theme, string $file = 'assets/js/app.js')
+    function theme_vite(?string $theme = null, string $file = 'assets/js/app.js')
     {
         static $isDevServer = null;
         static $devServerUrl = null;
 
+        $theme ??= app()->bound('theme') ? app('theme') : '';
+
         if (is_null($isDevServer)) {
             $devServerUrl = env('VITE_DEV_URL', 'http://localhost:5173');
-            try {
-                $context = stream_context_create(['http' => ['timeout' => 0.3]]);
-                $headers = @get_headers($devServerUrl, 1, $context);
-                $isDevServer = $headers !== false;
-            } catch (\Exception $e) {
+            // The dev-server probe is an HTTP request on first render: never
+            // pay for it outside local development.
+            if (app()->environment('local') || env('VITE_DEV_SERVER') === 'true') {
+                try {
+                    $context = stream_context_create(['http' => ['timeout' => 0.3]]);
+                    $headers = @get_headers($devServerUrl, 1, $context);
+                    $isDevServer = $headers !== false;
+                } catch (\Exception $e) {
+                    $isDevServer = false;
+                }
+            } else {
                 $isDevServer = false;
             }
         }
 
-        $filePath = "resources/themes/{$theme}/{$file}";
-
         if ($isDevServer) {
+            $filePath = "resources/themes/{$theme}/{$file}";
             $viteClient = '<script type="module" src="'.$devServerUrl.'/@vite/client"></script>';
             $themeAsset = '<script type="module" src="'.$devServerUrl.'/'.$filePath.'"></script>';
 
             return new HtmlString($viteClient."\n".$themeAsset);
         }
 
-        $manifestPath = base_path("resources/themes/{$theme}/public/.vite/manifest.json");
-        if (! file_exists($manifestPath)) {
-            return new HtmlString("<!-- Vite manifest not found for theme {$theme} -->");
-        }
-        $manifest = json_decode(file_get_contents($manifestPath), true);
-        if (! isset($manifest[$filePath])) {
-            return new HtmlString("<!-- Asset {$filePath} not found in manifest for theme {$theme} -->");
-        }
+        // A child theme without its own build falls back to the compiled
+        // assets of its parent (each candidate uses its own manifest key).
+        $current = $theme;
+        for ($depth = 0; $current && $depth < 3; $depth++) {
+            $manifestPath = base_path("resources/themes/{$current}/public/.vite/manifest.json");
+            $filePath = "resources/themes/{$current}/{$file}";
 
-        $html = '';
-        if (! empty($manifest[$filePath]['css'])) {
-            foreach ($manifest[$filePath]['css'] as $css) {
-                $cssPath = "/resources/themes/{$theme}/public/".$css;
-                $html .= '<link rel="stylesheet" href="'.asset($cssPath).'">'.PHP_EOL;
+            if (file_exists($manifestPath)) {
+                $manifest = json_decode(file_get_contents($manifestPath), true);
+
+                if (isset($manifest[$filePath])) {
+                    $html = '';
+                    if (! empty($manifest[$filePath]['css'])) {
+                        foreach ($manifest[$filePath]['css'] as $css) {
+                            $cssPath = "/resources/themes/{$current}/public/".$css;
+                            $html .= '<link rel="stylesheet" href="'.asset($cssPath).'">'.PHP_EOL;
+                        }
+                    }
+                    $jsPath = "/resources/themes/{$current}/public/".$manifest[$filePath]['file'];
+                    $html .= '<script type="module" src="'.asset($jsPath).'"></script>';
+
+                    return new HtmlString($html);
+                }
             }
-        }
-        $jsPath = "/resources/themes/{$theme}/public/".$manifest[$filePath]['file'];
-        $html .= '<script type="module" src="'.asset($jsPath).'"></script>';
 
-        return new HtmlString($html);
+            $current = theme_parent($current);
+        }
+
+        return new HtmlString("<!-- Vite manifest not found for theme {$theme} or its parents -->");
     }
 }
 

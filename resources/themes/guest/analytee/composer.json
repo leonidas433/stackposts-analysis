@@ -1,9 +1,11 @@
 {
-  "name": "guest/analytee",
-  "type": "laravel-theme",
-  "extra": {
-    "laravel-theme": {
-      "name": "guest/analytee"
+    "name": "guest/analytee",
+    "description": "Analytee — child theme of guest/nova (1536px container)",
+    "type": "laravel-theme",
+    "version": "1.1.0",
+    "extra": {
+        "theme": {
+            "parent": "guest/nova"
+        }
     }
-  }
 }

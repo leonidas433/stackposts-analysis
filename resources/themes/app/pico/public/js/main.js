@@ -2564,7 +2564,87 @@ var Main = new (function ()
         }
     },
 
+    /*
+     * Highcharts is no longer loaded globally by the layout: it is fetched
+     * on demand the first time a chart is drawn. Full-page views can still
+     * preload it synchronously via @pushOnce('vendor_scripts', 'highcharts')
+     * (see partials/scripts/highcharts.blade.php); AJAX-loaded fragments
+     * (dashboard items, statistics) are covered by this lazy loader because
+     * every chart goes through Main.Chart.
+     */
+    Main.highchartsSources = {
+        core: [
+            'https://code.highcharts.com/highcharts.js',
+            'https://code.highcharts.com/modules/exporting.js'
+        ],
+        maps: [
+            'https://code.highcharts.com/maps/modules/map.js',
+            'https://code.highcharts.com/mapdata/custom/world.js'
+        ]
+    },
+
+    Main.loadScriptOnce = function(url, callback) {
+        // States per url: undefined (not requested), array (loading, holds
+        // waiting callbacks), 'loaded'. Concurrent calls queue instead of
+        // injecting the same <script> twice.
+        Main._scriptState = Main._scriptState || {};
+        var state = Main._scriptState[url];
+
+        if (state === 'loaded') {
+            callback();
+            return;
+        }
+        if (Array.isArray(state)) {
+            state.push(callback);
+            return;
+        }
+
+        Main._scriptState[url] = [callback];
+        var script = document.createElement('script');
+        script.src = url;
+        script.onload = function() {
+            var waiters = Main._scriptState[url];
+            Main._scriptState[url] = 'loaded';
+            waiters.forEach(function(cb) { cb(); });
+        };
+        script.onerror = function() {
+            delete Main._scriptState[url];
+            console.error('Failed to load ' + url);
+        };
+        document.head.appendChild(script);
+    },
+
+    Main.loadHighcharts = function(needMaps, callback) {
+        var urls = [];
+        if (typeof Highcharts === 'undefined') {
+            urls = urls.concat(Main.highchartsSources.core);
+        }
+        if (needMaps && (typeof Highcharts === 'undefined' || typeof Highcharts.mapChart === 'undefined')) {
+            urls = urls.concat(Main.highchartsSources.maps);
+        }
+        if (urls.length === 0) {
+            callback();
+            return;
+        }
+
+        (function loadNext(index) {
+            if (index >= urls.length) {
+                callback();
+                return;
+            }
+            Main.loadScriptOnce(urls[index], function() {
+                loadNext(index + 1);
+            });
+        })(0);
+    },
+
     Main.Chart = function(type, data, container, additionalOptions = {}) {
+        Main.loadHighcharts(type === 'map', function() {
+            Main.ChartRender(type, data, container, additionalOptions);
+        });
+    },
+
+    Main.ChartRender = function(type, data, container, additionalOptions = {}) {
         let chart;
 
         Highcharts.setOptions({

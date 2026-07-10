@@ -1,0 +1,28 @@
+{
+  "resources/themes/_shared/fonts/inter-latin-ext.woff2": {
+    "file": "fonts/inter-latin-ext.woff2",
+    "src": "resources/themes/_shared/fonts/inter-latin-ext.woff2"
+  },
+  "resources/themes/_shared/fonts/inter-latin.woff2": {
+    "file": "fonts/inter-latin.woff2",
+    "src": "resources/themes/_shared/fonts/inter-latin.woff2"
+  },
+  "resources/themes/guest/resenas/assets/css/app.css": {
+    "file": "css/app.css",
+    "src": "resources/themes/guest/resenas/assets/css/app.css",
+    "isEntry": true
+  },
+  "resources/themes/guest/resenas/assets/js/app.js": {
+    "file": "js/app.js",
+    "name": "app",
+    "src": "resources/themes/guest/resenas/assets/js/app.js",
+    "isEntry": true,
+    "css": [
+      "css/app.css"
+    ],
+    "assets": [
+      "fonts/inter-latin.woff2",
+      "fonts/inter-latin-ext.woff2"
+    ]
+  }
+}

@@ -1,0 +1,33 @@
+/*
+ * app/pico — progressive Tailwind v4 pipeline for the panel.
+ *
+ * The panel still runs on legacy Bootstrap 5 (public/css/main.css). This
+ * stylesheet adds PREFIXED, PREFLIGHT-FREE Tailwind utilities on top so new
+ * panel UI can be built with the same design tokens as the guest themes
+ * without breaking any Bootstrap styling:
+ *
+ *   - no preflight/reset is imported (Bootstrap's own reset stays in charge)
+ *   - utilities require the tw: variant prefix, e.g. class="tw:flex tw:gap-4"
+ *     (Tailwind v4 prefix syntax — NOT tw-flex)
+ *   - utilities use logical properties, so they respect the panel's dynamic
+ *     RTL (dir attribute) out of the box
+ *
+ * Build: npm run build --theme=app/pico  →  public/css/app.css
+ * Docs:  docs/guia-crear-un-tema.md § "Pipeline Tailwind del panel"
+ */
+@import "../../../../_shared/tokens.css";
+@import "../../../../_shared/fonts.css";
+
+@layer theme, utilities;
+@import "tailwindcss/theme.css" layer(theme) prefix(tw);
+@import "tailwindcss/utilities.css" layer(utilities) prefix(tw);
+
+/* Map the shared brand tokens onto Tailwind theme variables so utilities
+   like tw:bg-primary and tw:font-body resolve to StackPost branding. */
+@theme {
+  --color-primary: #4f46e5;
+  --color-primary-hover: #4338ca;
+  --font-body: var(--sp-font-body);
+  --radius-md: var(--sp-radius-md);
+  --radius-lg: var(--sp-radius-lg);
+}

@@ -1,18 +1,10 @@
 {
     "name": "app/pico",
-    "description": "",
+    "description": "Pico — backend (panel) theme for StackPost",
     "type": "laravel-theme",
     "version": "1.0.0",
     "minimum-stability": "stable",
-    "authors": [
-        {
-            "name": "",
-            "email": ""
-        }
-    ],
     "extra": {
-        "laravel-theme": {
-            "name": "app/pico"
-        }
+        "theme": {}
     }
 }

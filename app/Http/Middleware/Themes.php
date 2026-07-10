@@ -20,7 +20,7 @@ class Themes
         //
 
         if ($request->segment(1) === 'app' || $request->segment(1) === 'admin' || $request->segment(1) === 'payment') {
-            $theme = 'app/pico';
+            $theme = get_option('backend_theme', 'app/pico');
         } else {
             $theme = 'guest/'.get_option('frontend_theme', env('THEME_FRONTEND'));
         }

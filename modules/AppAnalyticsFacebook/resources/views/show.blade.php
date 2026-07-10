@@ -845,3 +845,6 @@ Main.Chart('map', fansLocationMapChart, 'fans-map-chart', {
 });
 </script>
 @endsection
+@pushOnce('vendor_scripts', 'highcharts')
+    @include('partials.scripts.highcharts', ['maps' => true])
+@endPushOnce
