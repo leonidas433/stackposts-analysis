@@ -894,3 +894,6 @@ Main.Chart('pie', followerGenderChartData.series, 'followerGenderChart', {
 });
 </script>
 @endsection
+@pushOnce('vendor_scripts', 'highcharts')
+    @include('partials.scripts.highcharts', ['maps' => true])
+@endPushOnce

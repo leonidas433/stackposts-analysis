@@ -24,6 +24,9 @@
     {!! Script::renderCss() !!}
     {!! Script::globals() !!}
     <link rel="stylesheet" href="{{ theme_public_asset('css/main.css') }}?version=9.0.3">
+    {{-- Prefixed Tailwind utilities + shared design tokens (tw:*), built from
+         assets/css/app.css — see docs/guia-crear-un-tema.md --}}
+    <link rel="stylesheet" href="{{ theme_public_asset('css/app.css') }}?version=9.0.3">
 
     @yield('head_embed_code')
 </head>
@@ -95,10 +98,10 @@
     @include('partials.footer')
 
     <!-- FOOTER END -->
-    <script type="text/javascript" src="https://code.highcharts.com/highcharts.js"></script>
-    <script src="https://code.highcharts.com/modules/exporting.js"></script>
-    <script src="https://code.highcharts.com/maps/modules/map.js"></script>
-    <script src="https://code.highcharts.com/mapdata/custom/world.js"></script>
+    {{-- Vendor libraries needed by specific pages only (e.g. Highcharts via
+         @pushOnce('vendor_scripts', 'highcharts')). AJAX-loaded fragments are
+         covered by the lazy loader in Main.Chart (js/main.js). --}}
+    @stack('vendor_scripts')
     <script type="text/javascript" src="{{ theme_public_asset('plugins/jquery/jquery.min.js') }}"></script>
     <script type="text/javascript" src="{{ theme_public_asset('plugins/jquery-ui/jquery-ui.min.js') }}"></script>
     <script type="text/javascript" src="{{ theme_public_asset('plugins/codemirror5/lib/codemirror.js') }}"></script>
