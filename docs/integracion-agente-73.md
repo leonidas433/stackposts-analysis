@@ -131,18 +131,23 @@ de StackPost, no tú.
   decisiones de marca, no de cada tema.
 - Publicar/activar temas: siempre pasa por validador + staging.
 
-## 5. Lo que se sabe del Agente 73 (según memoria del propietario, 2026-07-10)
+## 5. Lo que la inspección del VPS reveló (2026-07-10)
 
-- **Ubicación:** `/home/claudedev/agente73/` en el VPS. **Versión:** 4.0 "Con Alma".
-- **Arquitectura:** 20 subagentes, pipeline de 13 fases.
-- **Trigger:** WhatsApp vía Remote Control con **gramática cerrada** de comandos.
-- **Gate de calidad:** parada obligatoria de QA en la **Fase 09** — no existe
-  camino a deploy desde WhatsApp (coincide con nuestra política: validador +
-  staging antes de activar).
-- **Notificaciones:** email vía Gmail (`holawebdoctor@gmail.com`); pendiente un
-  error `535 BadCredentials` que requiere regenerar la app password de Google.
-- **Pendiente de inspección en el VPS** (supervisor/systemd, puerto/API,
-  estado del servicio): ver §7.
+La ruta recordada (`/home/claudedev/agente73/`) **no existe**. Lo desplegado
+es el **embrión** del Agente 73: `wd-agent` v1.0 ("WebDoctor Agent",
+`/opt/wd-agent`, Flask en 127.0.0.1:8090 bajo Supervisor) — un bot de
+auditorías con un único comando (`audita <dominio>`), whitelist, PDF y CRM.
+Sin subagentes, sin fases, sin creación de webs. La infraestructura
+aprovechable sí existe: `whatsapp-bridge` (127.0.0.1:8080), Redis (6379),
+Supervisor, y Claude Code instalado (hay CLAUDE.md en wd-agent).
+
+**Decisión del propietario:** construir el 4.0 completo. **Ya está
+construido** en este repo: `agente73/` (13 fases, 20 subagentes, gramática
+cerrada TEMA/WEB/ESTADO/APRUEBA/RECHAZA/CANCELA/AYUDA, QA stop en F09 sin
+bypass, 29 tests). Despliegue: `agente73/deploy/RUNBOOK.md` (convive con
+wd-agent sin tocarlo; puerto 8091). Las §§1-4 y 6 de este documento quedan
+como diseño de referencia; el contrato §2 es ahora
+`agente73/contracts/tema-stackpost.md` (extraído literalmente).
 
 ## 6. Encaje propuesto en el pipeline de 13 fases
 
@@ -162,16 +167,11 @@ de StackPost, no tú.
 
 ## 7. Pendiente para cerrar la integración
 
-- [ ] **Inspección del VPS** (solo lectura). En el VPS:
-      `cd /home/claudedev/agente73 && claude -p "Inspecciona este directorio y dame: 1) estructura de carpetas y archivos principales; 2) cómo corre el agente (supervisor, systemd, screen, nohup); 3) puerto o endpoint si tiene API; 4) estado actual del servicio. Solo lectura, sin tocar nada."`
-      Pegar el resultado en la sesión de temas para adaptar §6 al montaje real.
-- [ ] Decidir dónde vive el bloque §2 según el montaje (system prompt de
-      subagentes vs. spec por job) y si puede adjuntarse `guest/analytee`
-      como ejemplo de referencia.
-- [ ] Si el código del Agente 73 está en un repo Git: añadirlo a la sesión
-      (add_repo) y versionar ahí la especialización.
+- [x] Inspección del VPS → hallazgos en §5 (wd-agent v1.0, bridge, Redis).
+- [x] Construcción del Agente 73 v4.0 → `agente73/` en este repo.
+- [ ] **Desplegar** siguiendo `agente73/deploy/RUNBOOK.md` (usuario dedicado,
+      venv, Supervisor en 8091, conexión firmada con el bridge).
 - [ ] Regenerar la app password de Gmail (error 535 BadCredentials en
-      `holawebdoctor@gmail.com`) — ajeno a los temas pero bloquea sus
-      notificaciones.
-- [ ] Primer tema piloto de extremo a extremo (WhatsApp → 13 fases → QA F09
-      con validador → PR/import → staging) para calibrar el bloque §2.
+      `holawebdoctor@gmail.com`) y ponerla en `A73_GMAIL_APP_PASSWORD`.
+- [ ] Primer tema piloto de extremo a extremo por WhatsApp
+      (`TEMA pilot73 #0f766e tema piloto...` → QA F09 → APRUEBA → ZIP).
