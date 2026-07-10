@@ -141,13 +141,21 @@ Sin subagentes, sin fases, sin creación de webs. La infraestructura
 aprovechable sí existe: `whatsapp-bridge` (127.0.0.1:8080), Redis (6379),
 Supervisor, y Claude Code instalado (hay CLAUDE.md en wd-agent).
 
-**Decisión del propietario:** construir el 4.0 completo. **Ya está
-construido** en este repo: `agente73/` (13 fases, 20 subagentes, gramática
-cerrada TEMA/WEB/ESTADO/APRUEBA/RECHAZA/CANCELA/AYUDA, QA stop en F09 sin
-bypass, 29 tests). Despliegue: `agente73/deploy/RUNBOOK.md` (convive con
-wd-agent sin tocarlo; puerto 8091). Las §§1-4 y 6 de este documento quedan
-como diseño de referencia; el contrato §2 es ahora
-`agente73/contracts/tema-stackpost.md` (extraído literalmente).
+**Historia de la decisión:** primero se optó por construir el 4.0 completo
+(pipeline de 13 fases + 20 subagentes disparado por WhatsApp, con QA stop en
+F09) y se construyó y ensayó de extremo a extremo. Después el propietario
+**simplificó el requisito**: sin WhatsApp ni email — los temas se crean o
+revisan **bajo demanda en una sesión de Claude Code** de este repo.
+
+**Estado final:**
+- El flujo vigente es el agente `stackpost-theme-builder`
+  (`.claude/agents/`), que crea temas hijos Y audita temas existentes
+  (modo revisión: validador + contrato + herencia + paridad + a11y).
+- El servicio Agente 73 (webhook Flask, orquestador de 13 fases, 20
+  subagentes, RUNBOOK de despliegue) se retiró de la rama al cambiar el
+  requisito; queda íntegro y recuperable en el historial de git
+  (commits `b7cf9f9..cb60446`, restaurable con
+  `git checkout cb60446 -- agente73/`).
 
 ## 6. Encaje propuesto en el pipeline de 13 fases
 
@@ -165,13 +173,17 @@ como diseño de referencia; el contrato §2 es ahora
 4. **Post-QA:** entrega del ZIP/carpeta al repo (PR) o al import del admin —
    nunca deploy directo, igual que hoy.
 
-## 7. Pendiente para cerrar la integración
+## 7. Cómo se piden temas ahora (flujo vigente)
 
-- [x] Inspección del VPS → hallazgos en §5 (wd-agent v1.0, bridge, Redis).
-- [x] Construcción del Agente 73 v4.0 → `agente73/` en este repo.
-- [ ] **Desplegar** siguiendo `agente73/deploy/RUNBOOK.md` (usuario dedicado,
-      venv, Supervisor en 8091, conexión firmada con el bridge).
-- [ ] Regenerar la app password de Gmail (error 535 BadCredentials en
-      `holawebdoctor@gmail.com`) y ponerla en `A73_GMAIL_APP_PASSWORD`.
-- [ ] Primer tema piloto de extremo a extremo por WhatsApp
-      (`TEMA pilot73 #0f766e tema piloto...` → QA F09 → APRUEBA → ZIP).
+En cualquier sesión de Claude Code sobre este repo:
+
+- **Crear**: “crea un tema hijo `guest/<id>` con color `#xxxxxx` y <descripción>”
+  → el agente genera el tema conforme al contrato, lo compila y lo valida.
+- **Revisar**: “revisa el tema `analytee`” → informe de auditoría (validador,
+  contrato, herencia limpia, paridad de clases, checklist a11y) sin tocar nada.
+- La activación sigue siendo manual en Admin → Themes → Frontend, tras el
+  checklist de staging (guía §11). Nada se despliega solo.
+
+Pendiente opcional: regenerar la app password de Gmail de
+`holawebdoctor@gmail.com` (535 BadCredentials) — ya no bloquea este flujo,
+solo afecta a las notificaciones de wd-agent.

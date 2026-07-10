@@ -174,9 +174,11 @@ activación; en el import ZIP es un rechazo.
 - **Agente `stackpost-theme-builder`** (`.claude/agents/stackpost-theme-builder.md`):
   subagente de Claude Code especializado en este contrato. En cualquier sesión
   sobre este repo, pide p. ej. *"crea un tema hijo guest/blackfriday con la
-  paleta X"* y Claude delegará en él; también sabe **portar HTML generado por
-  otras herramientas/agentes** a un tema hijo (traduce paleta a tokens, textos
-  a `__()`, assets a `theme_public_asset()`).
+  paleta X"* o *"revisa el tema analytee"* y Claude delegará en él. Crea temas
+  hijos, **audita temas existentes** (validador + contrato + herencia +
+  paridad + a11y, sin tocar nada) y sabe **portar HTML generado por otras
+  herramientas/agentes** a un tema hijo (traduce paleta a tokens, textos a
+  `__()`, assets a `theme_public_asset()`).
 - **Validador CLI** (`php scripts/validate-theme.php <tipo>/<nombre>`):
   valida composer.json (identidad + herencia), theme.json (esquema §6) y la
   estructura (build presente, hijo sin copias masivas de vistas) sin necesidad

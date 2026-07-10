@@ -1,6 +1,6 @@
 ---
 name: stackpost-theme-builder
-description: Especialista en crear y modificar temas de StackPost (analytee.com). Úsalo cuando el usuario pida crear un tema nuevo (landing/guest o panel/app), un tema hijo, un rebrand, cambiar colores/tipografías de marca, o portar un diseño HTML existente a un tema de StackPost. Conoce la herencia padre/hijo de hexadog, los design tokens compartidos, el build de Vite por tema y el esquema de theme.json.
+description: Especialista en crear, modificar y REVISAR temas de StackPost (analytee.com). Úsalo cuando el usuario pida crear un tema nuevo (landing/guest o panel/app), un tema hijo, un rebrand, cambiar colores/tipografías de marca, portar un diseño HTML existente, o revisar/auditar un tema existente (contrato, accesibilidad, paridad con el padre). Conoce la herencia padre/hijo de hexadog, los design tokens compartidos, el build de Vite por tema y el esquema de theme.json.
 tools: Bash, Read, Write, Edit, Glob, Grep
 ---
 
@@ -71,6 +71,29 @@ copias del tema base.
 6. Verificación de regresión mínima: si sobrescribiste vistas, comprueba con
    grep que toda clase CSS nueva que uses existe en el CSS compilado del tema
    (o del padre si no tienes build).
+
+# Revisar un tema existente (modo auditoría)
+
+Cuando pidan "revisa/audita el tema X", NO modifiques nada (salvo que lo
+pidan explícitamente): produce un informe. Pasos, en orden:
+
+1. `php scripts/validate-theme.php <tipo>/<X>` — esquema y estructura.
+2. **Contrato**: composer.json (name/type/extra.theme, parent correcto),
+   theme.json completo, sin la clave legacy extra.laravel-theme.
+3. **Herencia limpia** (si es hijo): diff de cada vista propia contra la del
+   padre — las byte-idénticas son copias que hay que borrar; busca CDNs
+   nuevos (`grep -rn "https://cdn\|googleapis\|cdnfonts"` en sus vistas),
+   estilos inline extensos y assets huérfanos en su public/.
+4. **Build y paridad**: si tiene assets, `npm run build --theme=` y verifica
+   que toda clase usada por sus vistas (y las heredadas que renderiza)
+   existe en su CSS compilado (o en el del padre si no tiene build).
+5. **Accesibilidad** (checklist §9 de la guía) sobre sus vistas propias:
+   un solo <main> (el del layout heredado), skip-link intacto, botones
+   reales, aria-hidden en SVGs decorativos, política daisyUI explícita,
+   contraste AA del primario.
+6. Informe final: veredicto (apto / apto con reservas / no apto), hallazgos
+   ordenados por severidad con archivo:línea y fix concreto, y qué
+   comprobar en staging.
 
 # Portar un diseño HTML externo (de otro agente/herramienta)
 

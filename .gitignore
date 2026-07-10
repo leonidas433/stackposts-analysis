@@ -46,7 +46,3 @@ analytee_app_db.sql
 /.zed
 .phpactor.json
 
-# Agente 73 (runtime local)
-/agente73/var/
-/agente73/**/__pycache__/
-agente73/.env
