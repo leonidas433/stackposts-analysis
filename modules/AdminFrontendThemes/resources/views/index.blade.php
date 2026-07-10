@@ -50,9 +50,14 @@
                 <div class="card-body border-top">
                     <div class="d-flex justify-content-between align-items-center mb-2">
                         <h5 class="card-title mb-0">{{ $theme['name'] ?? $theme['id'] }}</h5>
-                        @if(isset($activeTheme) && $activeTheme == $theme['id'])
-                            <span class="badge badge-pill badge-outline badge-sm badge-success ms-2">{{ __('Active') }}</span>
-                        @endif
+                        <div>
+                            @if(empty($theme['valid']))
+                                <span class="badge badge-pill badge-outline badge-sm badge-warning ms-2" title="{{ implode(' ', $theme['validation_errors'] ?? []) }}">{{ __('Invalid theme.json') }}</span>
+                            @endif
+                            @if(isset($activeTheme) && $activeTheme == $theme['id'])
+                                <span class="badge badge-pill badge-outline badge-sm badge-success ms-2">{{ __('Active') }}</span>
+                            @endif
+                        </div>
                     </div>
                     <p class="card-text small mb-2 text-muted text-truncate-3">{{ $theme['description'] ?? '' }}</p>
                     <ul class="list-unstyled mb-3 small">
@@ -65,8 +70,17 @@
                     </ul>
                     <div class="mt-auto">
                         @if(!isset($activeTheme) || $activeTheme != $theme['id'])
-                            <a class="btn btn-dark w-100 actionItem" href="{{ module_url("set-default") }}" data-id="{{ $theme['id'] }}" data-redirect="">
-                                {{ __('Use Theme') }}
+                            @if(empty($theme['valid']))
+                                <button class="btn btn-outline-warning w-100 mb-2" disabled title="{{ implode(' ', $theme['validation_errors'] ?? []) }}">
+                                    {{ __('Fix theme.json to activate') }}
+                                </button>
+                            @else
+                                <a class="btn btn-dark w-100 actionItem mb-2" href="{{ module_url("set-default") }}" data-id="{{ $theme['id'] }}" data-redirect="">
+                                    {{ __('Use Theme') }}
+                                </a>
+                            @endif
+                            <a class="btn btn-outline-danger btn-sm w-100 actionItem" href="{{ module_url("destroy") }}" data-id="{{ $theme['id'] }}" data-confirm="{{ __('Delete this theme permanently? This cannot be undone.') }}" data-redirect="">
+                                {{ __('Delete') }}
                             </a>
                         @else
                             <button class="btn btn-outline-success w-100" disabled>

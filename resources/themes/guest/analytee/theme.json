@@ -1,6 +1,10 @@
 {
-  "name": "analytee",
-  "vendor": "guest",
-  "version": "1.0.0",
-  "description": "Clon exacto de Nova"
+  "name": "Analytee",
+  "description": "Official analytee.com theme. Child of Nova Modern with a wider 1536px container and a light-only color scheme.",
+  "version": "1.1.0",
+  "author": "Analytee",
+  "preview": "preview.png",
+  "tags": ["modern", "minimal", "saas", "child-theme"],
+  "parent": "guest/nova",
+  "sort": 10
 }

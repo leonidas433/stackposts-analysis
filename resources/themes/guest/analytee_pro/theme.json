@@ -1,8 +1,10 @@
 {
   "name": "Analytee Pro",
-  "description": "Nova Modern is a premium, minimalist theme with soft pastel colors and spacious layouts. Perfect for SaaS platforms, startups, and creative professionals who want to deliver a sleek and modern user experience from the very first glance.",
-  "version": "1.0.0",
-  "author": "StackPosts",
+  "description": "Premium variant of the Analytee brand. Thin child theme of Nova Modern: inherits every view and asset from its parent and only ships extra language strings.",
+  "version": "1.1.0",
+  "author": "Analytee",
   "preview": "preview.png",
-  "tags": ["modern", "minimal", "creative", "pastel", "dashboard"]
+  "tags": ["modern", "premium", "saas", "child-theme"],
+  "parent": "guest/nova",
+  "sort": 5
 }
