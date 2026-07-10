@@ -9,6 +9,7 @@
 auth.json
 
 # Builds y runtime
+/bootstrap/cache/*.php
 /public/build
 /public/hot
 /public/storage
