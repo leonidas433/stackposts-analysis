@@ -62,6 +62,7 @@ phases:
       - maquetador-pricing
       - maquetador-blog
       - maquetador-auth
+      - validador-contrato        # actúa como autocontrol durante la generación
     contract: tema-stackpost.md   # el vertical web usa web-generica.md
     output: generacion.md
     verticals: [tema, web]

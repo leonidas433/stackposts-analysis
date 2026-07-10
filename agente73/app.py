@@ -35,12 +35,13 @@ log = logging.getLogger("agente73")
 
 app = Flask(__name__)
 store = storage.make_store()
+_claude = ClaudeRunner()
 orchestrator = Orchestrator(
     store,
     runners={
-        "claude": ClaudeRunner(),
+        "claude": _claude,
         "shell": ShellRunner(),
-        "notify": NotifyRunner(),
+        "notify": NotifyRunner(claude_runner=_claude),
         "internal": InternalRunner(),
     },
     notifier=lambda job, text: notify.send_wa(job["sender"], text),

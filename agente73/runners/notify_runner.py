@@ -14,6 +14,11 @@ MAX_WA_CHARS = 3000
 
 
 class NotifyRunner(Runner):
+    def __init__(self, claude_runner=None):
+        # Opcional: si hay motor Claude, el informe de QA lo redactan
+        # qa-reporter y los revisores; si no, informe estático.
+        self.claude = claude_runner
+
     def run(self, job: dict, phase: dict) -> PhaseResult:
         if phase["id"] == QA_PHASE:
             return self.qa_report(job, phase)
@@ -26,6 +31,38 @@ class NotifyRunner(Runner):
     def qa_report(self, job: dict, phase: dict) -> PhaseResult:
         jdir = storage.job_dir(job)
         qa_auto = (jdir / "qa-auto.md")
+
+        text = self._claude_report(job, phase)
+        if text is None:
+            text = self._static_report(job, qa_auto)
+
+        if phase.get("output"):
+            (jdir / phase["output"]).write_text(text, encoding="utf-8")
+
+        notify.send_wa(job["sender"], text[:MAX_WA_CHARS])
+        notify.send_email(
+            f"[Agente73] QA pendiente — job {job['id']}",
+            text,
+            [str(qa_auto)] if qa_auto.is_file() else None,
+        )
+        # El gate lo aplica el orquestador (phase.gate == human); aquí solo avisamos.
+        artifacts = {phase["output"]: phase["output"]} if phase.get("output") else {}
+        return PhaseResult("ok", "informe de QA enviado", artifacts)
+
+    def _claude_report(self, job: dict, phase: dict) -> str | None:
+        """Informe redactado por qa-reporter + revisores (si hay motor Claude)."""
+        if not self.claude or not phase.get("subagents"):
+            return None
+        try:
+            prompt = self.claude.build_prompt(job, phase)
+            output, _err = self.claude._run_cli(prompt, allow_writes=False)
+            if output and output.strip():
+                return output.strip()
+        except Exception as exc:
+            log.warning("informe QA vía Claude no disponible: %s", exc)
+        return None
+
+    def _static_report(self, job: dict, qa_auto) -> str:
         report = [
             f"🧪 *QA del job {job['id']}* ({job['kind']}: "
             f"{job['spec'].get('theme_id') or job['spec'].get('domain')})",
@@ -40,20 +77,7 @@ class NotifyRunner(Runner):
             f"➡️ APRUEBA {job['id']} para empaquetar y entregar",
             f"➡️ RECHAZA {job['id']} <motivo> para regenerar",
         ]
-        text = "\n".join(report)[:MAX_WA_CHARS]
-
-        if phase.get("output"):
-            (jdir / phase["output"]).write_text(text, encoding="utf-8")
-
-        notify.send_wa(job["sender"], text)
-        notify.send_email(
-            f"[Agente73] QA pendiente — job {job['id']}",
-            text,
-            [str(qa_auto)] if qa_auto.is_file() else None,
-        )
-        # El gate lo aplica el orquestador (phase.gate == human); aquí solo avisamos.
-        artifacts = {phase["output"]: phase["output"]} if phase.get("output") else {}
-        return PhaseResult("ok", "informe de QA enviado", artifacts)
+        return "\n".join(report)
 
     def deliver(self, job: dict) -> PhaseResult:
         jdir = storage.job_dir(job)
