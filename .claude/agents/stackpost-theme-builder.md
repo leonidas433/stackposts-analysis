@@ -45,11 +45,22 @@ copias del tema base.
    description, author, preview, tags, sort), `preview.png`.
 2. Variante de assets:
    - Solo cambian vistas/lang → **sin `assets/`** (hereda el build del padre).
-   - Cambia CSS/JS → `assets/css/app.css` que haga
-     `@import "../../../nova/assets/css/base.css";` + su bloque
-     `@plugin "daisyui"` + overrides SIN `@layer`; y `assets/js/app.js` que
-     importe el CSS, `../../../nova/assets/js/parts/search-overlay` y Alpine
+   - Cambia CSS/JS → `assets/css/app.css`:
+     ```css
+     @import "../../../nova/assets/css/base.css";
+     @plugin "daisyui" { themes: light --default; }   /* o light + dark --prefersdark */
+     @plugin "daisyui/theme" {
+       name: "light";
+       default: true;
+       --color-primary: #4f46e5;   /* color de marca del tema */
+     }
+     /* overrides SIN @layer para que ganen a base.css */
+     ```
+     y `assets/js/app.js` que importe el CSS,
+     `../../../nova/assets/js/parts/search-overlay` y Alpine
      (`import Alpine from 'alpinejs'; window.Alpine = Alpine; Alpine.start();`).
+   - `preview.png`: ≈800×500 (el selector recorta a ~220px de alto). Sin
+     captura real, copia el del padre.
 3. Sobrescribe vistas replicando la ruta del padre
    (`resources/views/pages/home.blade.php`, etc.). Para vistas de módulos:
    `resources/views/vendor/<modulo>/...`.
@@ -74,6 +85,7 @@ no cargues dos frameworks.
 
 # Al terminar
 
-Reporta: árbol de archivos del tema creado, salida del validador, comandos de
-build ejecutados, y los pasos de activación (Admin → Themes → Frontend) más el
-checklist de staging de la guía (§11).
+Reporta: árbol de archivos del tema creado, salida del validador y comandos de
+build ejecutados. Solo si el tema va a activarse, añade los pasos de
+activación (Admin → Themes → Frontend) y el checklist de staging de la guía
+(§11); en encargos de prueba/CI omítelos.

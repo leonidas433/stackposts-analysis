@@ -82,7 +82,9 @@ Ejemplo real en el repo: `guest/analytee` (hijo con build propio) y
    resources/themes/guest/mitema/
    ├── composer.json   (con extra.theme.parent = "guest/nova", ver §3)
    ├── theme.json      (ver esquema en §6)
-   └── preview.png
+   └── preview.png     (≈800×500; la tarjeta del selector lo recorta a ~220px
+                        de alto con object-fit:cover. Hasta tener captura real,
+                        copia el preview.png del padre)
    ```
 2. **Decide la variante de assets:**
    - **Sin build propio** (como `analytee_pro`): no crees `assets/`. `theme_vite()`
@@ -163,6 +165,9 @@ activación; en el import ZIP es un rechazo.
   en producción no hay ping HTTP. URL configurable con `VITE_DEV_URL`
   (default `http://localhost:5173`).
 - Un tema sin `assets/` no se compila (Vite sale limpio) y hereda el build del padre.
+- **Nota esperada:** un hijo con build propio re-emite las fuentes de `_shared`
+  (~133 KB de woff2) en su `public/fonts/` — es el comportamiento correcto
+  (cada tema compilado es autocontenido), no un error de duplicación.
 
 ## 7b. Automatización: agente y validador CLI
 
