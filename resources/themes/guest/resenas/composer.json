@@ -1,0 +1,11 @@
+{
+    "name": "guest/resenas",
+    "description": "Reseñas — child theme of guest/nova (AI review analysis landing, blue brand)",
+    "type": "laravel-theme",
+    "version": "1.0.0",
+    "extra": {
+        "theme": {
+            "parent": "guest/nova"
+        }
+    }
+}
