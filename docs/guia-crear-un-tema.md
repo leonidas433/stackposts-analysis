@@ -164,6 +164,19 @@ activación; en el import ZIP es un rechazo.
   (default `http://localhost:5173`).
 - Un tema sin `assets/` no se compila (Vite sale limpio) y hereda el build del padre.
 
+## 7b. Automatización: agente y validador CLI
+
+- **Agente `stackpost-theme-builder`** (`.claude/agents/stackpost-theme-builder.md`):
+  subagente de Claude Code especializado en este contrato. En cualquier sesión
+  sobre este repo, pide p. ej. *"crea un tema hijo guest/blackfriday con la
+  paleta X"* y Claude delegará en él; también sabe **portar HTML generado por
+  otras herramientas/agentes** a un tema hijo (traduce paleta a tokens, textos
+  a `__()`, assets a `theme_public_asset()`).
+- **Validador CLI** (`php scripts/validate-theme.php <tipo>/<nombre>`):
+  valida composer.json (identidad + herencia), theme.json (esquema §6) y la
+  estructura (build presente, hijo sin copias masivas de vistas) sin necesidad
+  de Laravel. Exit 0 = válido. Úsalo en CI y antes de cada PR de tema.
+
 ## 8. Import/export de temas (ZIP)
 
 El import (Admin → Themes → Frontend → Import) exige:
