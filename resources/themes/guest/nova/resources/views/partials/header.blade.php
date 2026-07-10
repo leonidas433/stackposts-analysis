@@ -1,4 +1,4 @@
-<section x-data="{ mobileNavOpen: false }" class="bg-blueGray-50 z-60 relative">
+<header role="banner" x-data="{ mobileNavOpen: false }" class="bg-blueGray-50 z-60 relative">
     <div class="container mx-auto">
         <div class="flex items-center justify-between px-4 py-5 bg-blueGray-50">
             <div class="w-auto">
@@ -216,4 +216,4 @@
             </nav>
         </div>
     </div>
-</section>
+</header>
