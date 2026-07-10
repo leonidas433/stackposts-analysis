@@ -131,13 +131,47 @@ de StackPost, no tú.
   decisiones de marca, no de cada tema.
 - Publicar/activar temas: siempre pasa por validador + staging.
 
-## 5. Pendiente para cerrar la integración
+## 5. Lo que se sabe del Agente 73 (según memoria del propietario, 2026-07-10)
 
-- [ ] Confirmar cómo está montado el Agente 73 en el VPS (¿script propio,
-      n8n, API de Anthropic/OpenAI, Claude Code?) para decidir dónde pegar el
-      bloque §2 y si puede recibir ejemplos (adjuntar `guest/analytee` como
-      referencia de hijo bien hecho ayuda mucho).
-- [ ] Si el Agente 73 vive en un repo Git: añadirlo a la sesión con add_repo
-      y adaptamos su prompt directamente en su código.
-- [ ] Primer tema piloto de extremo a extremo (Agente 73 → validador → build
-      → staging) para calibrar el bloque §2 con fricciones reales.
+- **Ubicación:** `/home/claudedev/agente73/` en el VPS. **Versión:** 4.0 "Con Alma".
+- **Arquitectura:** 20 subagentes, pipeline de 13 fases.
+- **Trigger:** WhatsApp vía Remote Control con **gramática cerrada** de comandos.
+- **Gate de calidad:** parada obligatoria de QA en la **Fase 09** — no existe
+  camino a deploy desde WhatsApp (coincide con nuestra política: validador +
+  staging antes de activar).
+- **Notificaciones:** email vía Gmail (`holawebdoctor@gmail.com`); pendiente un
+  error `535 BadCredentials` que requiere regenerar la app password de Google.
+- **Pendiente de inspección en el VPS** (supervisor/systemd, puerto/API,
+  estado del servicio): ver §7.
+
+## 6. Encaje propuesto en el pipeline de 13 fases
+
+(Provisional hasta la inspección de §7; asume la semántica habitual de sus fases.)
+
+1. **Gramática de WhatsApp:** añadir un comando de tema a la gramática cerrada,
+   p. ej. `TEMA <id> <color-marca> [descripcion...]` → el pipeline recibe como
+   spec el contrato de la §2 con esos parámetros sustituidos.
+2. **Fases de generación:** producen la carpeta `<id>/` del contrato (§2) en
+   lugar de una web independiente. El bloque de la §2 se inyecta en el system
+   prompt de los subagentes de generación (o como spec del job).
+3. **Fase 09 (QA stop):** incorporar como criterio automático de la parada:
+   `php scripts/validate-theme.php guest/<id>` = OK **y** build de Vite
+   compilando. El QA humano revisa además el preview visual.
+4. **Post-QA:** entrega del ZIP/carpeta al repo (PR) o al import del admin —
+   nunca deploy directo, igual que hoy.
+
+## 7. Pendiente para cerrar la integración
+
+- [ ] **Inspección del VPS** (solo lectura). En el VPS:
+      `cd /home/claudedev/agente73 && claude -p "Inspecciona este directorio y dame: 1) estructura de carpetas y archivos principales; 2) cómo corre el agente (supervisor, systemd, screen, nohup); 3) puerto o endpoint si tiene API; 4) estado actual del servicio. Solo lectura, sin tocar nada."`
+      Pegar el resultado en la sesión de temas para adaptar §6 al montaje real.
+- [ ] Decidir dónde vive el bloque §2 según el montaje (system prompt de
+      subagentes vs. spec por job) y si puede adjuntarse `guest/analytee`
+      como ejemplo de referencia.
+- [ ] Si el código del Agente 73 está en un repo Git: añadirlo a la sesión
+      (add_repo) y versionar ahí la especialización.
+- [ ] Regenerar la app password de Gmail (error 535 BadCredentials en
+      `holawebdoctor@gmail.com`) — ajeno a los temas pero bloquea sus
+      notificaciones.
+- [ ] Primer tema piloto de extremo a extremo (WhatsApp → 13 fases → QA F09
+      con validador → PR/import → staging) para calibrar el bloque §2.
